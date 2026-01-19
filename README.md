@@ -26,3 +26,6 @@ Automated pipelines handle testing, linting, building, and deployment across all
 
 ### **Scalable Project Layout**
 The entire system is organized to allow independent service evolution and flexible scaling.
+
+
+![alt text](image.png)
