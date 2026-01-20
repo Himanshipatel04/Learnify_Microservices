@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "3000:3000"   # HTTP port
+    depends_on:
+      - projects
+      - admin
+      - content
+
+  admin:
+    build: ./services/admin
+    ports:
+      - "4000:4000"   # HTTP port
+      - "40000:40000" # gRPC port
+    depends_on: []
+
+  projects:
+    build: ./services/projects
+    ports:
+      - "4001:4001"   # HTTP port
+      - "40001:40001" # gRPC port
+    depends_on: []
+
+  content:
+    build: ./services/content
+    ports:
+      - "4002:4002"   # HTTP port
+      - "40002:40002" # gRPC port
+    depends_on: []

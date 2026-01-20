@@ -3,3 +3,9 @@ Microservice for plagiarism detection.
 Kafka for notifications using event-driven architecture.
 
 We can use kafka to send notifications about the plagiarism report status to users. (Both - uploader and the project owner).
+
+Implement chats
+
+Implement notifications
+
+Implement auth
