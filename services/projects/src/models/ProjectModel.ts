@@ -27,11 +27,13 @@ const ProjectSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      maxLength: 200,
     },
     description: {
       type: String,
       required: true,
       trim: true,
+      maxLength: 2000,
     },
     videoLink: {
       type: String,
