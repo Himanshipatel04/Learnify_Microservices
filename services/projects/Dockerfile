@@ -1,19 +1,21 @@
-# Use Node.js LTS
+# Use Node.js LTS Alpine image
 FROM node:20-alpine
 
-# Create app directory
+# Set working directory
 WORKDIR /usr/src/app
 
-# Install dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm install --production
 
-# Copy source code
+# Install dependencies
+RUN npm install
+
+# Copy the source code
 COPY . .
 
-# Expose gRPC port (example: 50052) and HTTP if needed
-EXPOSE 40001
-EXPOSE 4001
+# Expose HTTP and gRPC ports
+EXPOSE 4001    # HTTP
+EXPOSE 40001   # gRPC
 
 # Start the service
 CMD ["node", "src/app.js"]
