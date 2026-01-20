@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import "dotenv/config";
 import { requestLogger } from "./src/utils/requestLogger";
 import { adminRouter } from "./src/routes/admin.routes";
+import { successResponse } from "./src/responses/success.response";
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(requestLogger);
 app.use("/", adminRouter);
 
 app.get("/", (req: Request, res: Response) => {
-  res.status(200).send("Admin Service is up and running!");
+  successResponse(res, null, "Welcome to the Admin Service", 200);
 });
 
 app.listen(process.env.PORT, async () => {

@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.use("/projects", projectRouter);
+app.use("/", projectRouter);
 
 app.get("/", (req: Request, res: Response) => {
   successResponse(res, null, "Project service is running");

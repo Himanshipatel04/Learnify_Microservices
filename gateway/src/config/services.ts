@@ -1,6 +1,16 @@
-export const services = {
-  admin: process.env.ADMIN_SERVICE,
-  user: process.env.USER_SERVICE,
-  project: process.env.PROJECT_SERVICE,
-  content: process.env.CONTENT_SERVICE,
+interface Service {
+  admin: string;
+  user: string;
+  project: string;
+  content: string;
+}
+
+const PORT = "3000";
+const HOST = `http://localhost:${PORT}/admin`;
+
+export const services: Service = {
+  admin: process.env.ADMIN_SERVICE || HOST, 
+  user: process.env.USER_SERVICE || HOST,
+  project: process.env.PROJECT_SERVICE || HOST,
+  content: process.env.CONTENT_SERVICE || HOST,
 };

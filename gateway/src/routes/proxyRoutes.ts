@@ -1,39 +1,33 @@
 import express from "express";
-import { services } from "../config/services";
 import { createProxyMiddleware } from "http-proxy-middleware";
+import { services } from "../config/services";
+import { errorResponse } from "../responses/error.response";
 
 const router = express.Router();
 
-router.use(
-  "/admin",
-  createProxyMiddleware({
-    target: services.admin,
+function createProxy(target: string, serviceName: string) {
+  return createProxyMiddleware({
+    target,
+    pathRewrite: {},
     changeOrigin: true,
-    pathRewrite: { "^/admin": "" },
-  })
-);
+    on: {
+      error: (err, req, res: any) => {
+        res.writeHead(503, {
+          'Content-Type': 'application/json',
+        });
+        return errorResponse(res, "", `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} service is unavailable`, 503);
+      },
+    },
+  });
+}
 
-router.use(
-  "/user",
-  createProxyMiddleware({
-    target: services.user,
-    changeOrigin: true,
-    pathRewrite: { "^/user": "" },
-  })
-);
+router.use("/admin", createProxy(services.admin, "admin"));
+router.use("/users", createProxy(services.user, "users"));
+router.use("/projects", createProxy(services.project, "projects"));
+router.use("/content", createProxy(services.content, "content"));
 
-router.use("/project", createProxyMiddleware({
-  target: services.project,
-  changeOrigin: true,
-  pathRewrite: { "^/project": "" },
-})
-);
-
-router.use("/content", createProxyMiddleware({
-  target: services.content,
-  changeOrigin: true,
-  pathRewrite: { "^/content": "" },
-})
-);
+router.use((req, res) => {
+  return errorResponse(res, "", "Route not found in API Gateway", 404);
+});
 
 export default router;
