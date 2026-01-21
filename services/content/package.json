@@ -1,8 +1,12 @@
 {
   "name": "blogs-ideas-mentors-hackathons",
   "module": "index.ts",
-  "type": "module",
   "private": true,
+  "scripts": {
+    "build": "tsc && npm run copy-proto",
+  "copy-proto": "cp -r src/proto dist/src/",
+    "start": "node dist/index.js"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/express": "^5.0.6",

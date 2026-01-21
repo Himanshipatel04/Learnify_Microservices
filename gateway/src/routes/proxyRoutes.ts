@@ -8,14 +8,17 @@ const router = express.Router();
 function createProxy(target: string, serviceName: string) {
   return createProxyMiddleware({
     target,
-    pathRewrite: {},
     changeOrigin: true,
+    // Use event emitter syntax
     on: {
       error: (err, req, res: any) => {
-        res.writeHead(503, {
-          'Content-Type': 'application/json',
-        });
-        return errorResponse(res, "", `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} service is unavailable`, 503);
+        if (!res.headersSent) {
+          return errorResponse(
+            res,
+            503,
+            `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} service is unavailable`
+          );
+        }
       },
     },
   });
@@ -27,7 +30,7 @@ router.use("/projects", createProxy(services.project, "projects"));
 router.use("/content", createProxy(services.content, "content"));
 
 router.use((req, res) => {
-  return errorResponse(res, "", "Route not found in API Gateway", 404);
+  return errorResponse(res, 404, "Route not found in API Gateway");
 });
 
 export default router;

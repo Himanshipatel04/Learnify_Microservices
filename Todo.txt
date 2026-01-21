@@ -9,3 +9,11 @@ Implement chats
 Implement notifications
 
 Implement auth
+
+
+------------***************************************-----------------
+
+LOCAL TESTING CHANGES TO BE DONE:
+
+change the services.ts file in gateway to point to localhost addresses instead of docker container addresses.
+also change the grpc client files in admin service to point to localhost addresses instead of docker container addresses.

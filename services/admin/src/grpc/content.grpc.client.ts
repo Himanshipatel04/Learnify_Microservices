@@ -1,5 +1,5 @@
-import grpc from "@grpc/grpc-js";
-import protoLoader from "@grpc/proto-loader";
+import * as grpc from "@grpc/grpc-js";
+import * as protoLoader from "@grpc/proto-loader";
 import path from "path";
 import { promisify } from "util";
 
@@ -9,7 +9,8 @@ const packageDef = protoLoader.loadSync(contentProtoPath);
 const grpcObj = grpc.loadPackageDefinition(packageDef) as any;
 
 export const contentClient = new grpcObj.content.ContentService(
-    `localhost:${process.env.CONTENT_GRPC_PORT}`,
+    // `localhost:${process.env.CONTENT_GRPC_PORT}`,
+    `content:${process.env.CONTENT_GRPC_PORT}`,
     grpc.credentials.createInsecure(),
 );
 

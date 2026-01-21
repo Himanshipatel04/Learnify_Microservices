@@ -7,7 +7,9 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4000    # HTTP
-EXPOSE 40000   # gRPC
+RUN npm run build
 
-CMD ["node", "src/app.js"]
+EXPOSE 4000    
+EXPOSE 40000   
+
+CMD ["node", "dist/index.js"]

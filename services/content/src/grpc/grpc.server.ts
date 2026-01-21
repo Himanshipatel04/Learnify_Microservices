@@ -1,5 +1,5 @@
-import grpc from "@grpc/grpc-js";
-import protoLoader from "@grpc/proto-loader";
+import * as grpc from "@grpc/grpc-js";
+const protoLoader = require("@grpc/proto-loader");
 import path from "path";
 import { getAllBlogsGrpc } from "../handlers/blogs/blogs.grpc.handler";
 import { getAllIdeasGrpc } from "../handlers/ideas/ideas.grpc.handler";
