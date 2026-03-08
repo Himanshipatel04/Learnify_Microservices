@@ -1,0 +1,28 @@
+name: Build and Deploy Projects Service to Render
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run : bun install
+
+      - name: Build User Service
+        run: bun build src/index.ts --outdir dist
+
+      - name: Deploy to Render
+        run: |
+          echo "Triggering deployment of User service..."
+          # curl -X POST ${{secrets.RENDER_DEPLOY_HOOK}}

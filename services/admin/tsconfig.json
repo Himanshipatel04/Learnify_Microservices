@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // Environment setup & Node-compatible features
+    "lib": ["ESNext"],
+    "target": "ES2020",              // Node 20 supports ES2020+
+    "module": "CommonJS",            // Node requires CommonJS
+    "rootDir": ".",                  // source root
+    "outDir": "dist",                // compiled JS goes here
+    "moduleResolution": "node",      // Node module resolution
+    "allowJs": true,                 // optional if you have JS files
+    "esModuleInterop": true,         // allows import x from 'y' for CommonJS modules
+    "forceConsistentCasingInFileNames": true,
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    // Optional stricter flags
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false
+  },
+  "include": ["**/*.ts"],           // include all TypeScript files
+  "exclude": ["node_modules"]       // exclude dependencies
+}

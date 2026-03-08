@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package project;
+
+// Service definition
+service ProjectService {
+  rpc GetAllProjects(Empty) returns (ProjectList);
+}
+
+// Empty message
+message Empty {}
+
+// Single project
+message Project {
+  string id = 1;
+  string title = 2;
+  string abstract = 3;
+  string description = 4;
+  string domain = 5;
+  string collegeName = 6;
+  string githubLink = 7;
+  string liveLink = 8;
+  string videoLink = 9;
+  string image = 10;
+  int32 likeCount = 11;
+  int32 commentCount = 12;
+  string postedByUserId = 13;
+  string postedByName = 14;
+  string postedByProfilePicture = 15;
+  repeated string tags = 16;
+  string createdAt = 17;
+  string updatedAt = 18;
+}
+
+// List of projects
+message ProjectList {
+  repeated Project projects = 1;
+}

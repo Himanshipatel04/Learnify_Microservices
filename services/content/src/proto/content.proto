@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package content;
+
+service ContentService {
+  rpc GetAllBlogs(Empty) returns (BlogList);
+  rpc GetAllIdeas(Empty) returns (IdeaList);
+  rpc GetAllHackathons(Empty) returns (HackathonList);
+  rpc GetAllMentors(Empty) returns (MentorList);
+}
+
+message Empty {}
+
+message Blog {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+}
+message BlogList {
+  repeated Blog blogs = 1;
+}
+
+message Idea {
+  string id = 1;
+  string title = 2;
+}
+message IdeaList {
+  repeated Idea ideas = 1;
+}
+
+message Hackathon {
+  string id = 1;
+  string name = 2;
+}
+message HackathonList {
+  repeated Hackathon hackathons = 1;
+}
+
+message Mentor {
+  string id = 1;
+  string name = 2;
+}
+
+message MentorList {
+  repeated Mentor mentors = 1;
+}

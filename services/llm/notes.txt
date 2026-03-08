@@ -1,0 +1,11 @@
+Your LLM microservice will:
+
+Consume Kafka messages when new content/projects are added.
+
+Generate embeddings using Ollama (for semantic search/plagiarism).
+
+Optionally generate chatbot answers using RAG with LangChain.
+
+Update MongoDB documents with embeddings.
+
+Provide an endpoint for the frontend/chatbot to query answers.
