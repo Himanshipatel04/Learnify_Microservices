@@ -1,34 +1,28 @@
-import OpenAI from 'openai';
-import { CONFIG } from "../config";
+import { GeminiProvider } from "../providers/gemini.provider"
+import { GroqProvider } from "../providers/groq.provider"
+import { OpenAIProvider } from "../providers/openai.provider"
 
-const openai = new OpenAI({ apiKey: CONFIG.openai.apiKey })
-const gemini = new OpenAI({ apiKey: CONFIG.gemini.apiKey, baseURL: CONFIG.gemini.baseUrl })
+const providers = [
+    new GroqProvider(),
+    new OpenAIProvider(),
+    new GeminiProvider(),
+]
 
 export const fetchResponse = async (messages: any[]) => {
-    try {
-        const completion = await gemini.chat.completions.create({
-            model: CONFIG.gemini.model,
-            messages
-        })
-        console.log(completion);
-        return {
-            content: completion.choices[0].message.content,
-            provider: 'Gemini'
-        }
-    }
-    catch (error: any) {
-        console.log("GEMINI Failed - Using OPENAI")
+
+    for (const provider of providers) {
         try {
-            const completion = await openai.chat.completions.create({
-                model: CONFIG.openai.model,
-                messages,
-            });
+            const content = await provider.generate(messages)
+
             return {
-                content: completion.choices[0].message.content,
-                provider: 'OpenAI'
-            };
-        } catch (error: any) {
-            throw new Error("All AI providers are currently exhausted.");
+                provider: provider.name,
+                content
+            }
+
+        } catch (err) {
+            console.log(provider.name + " failed", err)
         }
     }
+
+    throw new Error("All AI providers failed")
 }
